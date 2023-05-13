@@ -1,1 +1,1 @@
-# Internet store
+# Product store
