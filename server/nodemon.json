@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "exc": "ts-node main.ts",
+  "watch": "./"
+}
