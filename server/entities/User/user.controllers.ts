@@ -63,6 +63,14 @@ class UserControllers {
       next(error);
     }
   };
+
+  public isSign: RequestHandler = (_, response, next): void => {
+    try {
+      response.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export const userControllers = new UserControllers();
