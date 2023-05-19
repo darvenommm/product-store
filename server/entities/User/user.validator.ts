@@ -8,7 +8,7 @@ class UserValidator extends Validator {
   private getFullNameValidator = (): ValidationChain => {
     return body('fullName')
       .isString()
-      .isLength({ min: 1, max: 64 })
+      .isLength({ min: 4, max: 64 })
       .trim()
       .escape();
   };

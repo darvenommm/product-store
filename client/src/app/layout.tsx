@@ -1,7 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 
-import { StateProvider } from '@/providers';
+import { StateProvider, ReactQueryProvider } from '@/providers';
 import { Header } from '@/widgets';
 
 import { Children, Container } from '@/shared';
@@ -25,10 +25,12 @@ export default function RootLayout({ children }: IRootProps) {
     <html lang="en">
       <body className={bodyClassNames}>
         <StateProvider>
-          <Header />
-          <Container as="main" className="mt-4">
-            {children}
-          </Container>
+          <ReactQueryProvider>
+            <Header />
+            <Container as="main" className="mt-5">
+              {children}
+            </Container>
+          </ReactQueryProvider>
         </StateProvider>
       </body>
     </html>

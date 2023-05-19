@@ -1,4 +1,9 @@
-import { ReactHTML, createElement } from 'react';
+import {
+  ReactHTML,
+  createElement,
+  forwardRef,
+  ButtonHTMLAttributes,
+} from 'react';
 import { clsx } from 'clsx';
 
 import { clearClassNames } from '@/shared/helpers';
@@ -7,14 +12,16 @@ import { Children } from '@/shared';
 
 type ButtonTypes = 'primary' | 'bright';
 
-interface IButtonProps {
+type ButtonProps = {
   children: Children;
   as?: keyof ReactHTML;
   className?: string;
   styleType?: ButtonTypes;
-}
+} & {
+  [key in keyof ButtonHTMLAttributes<HTMLButtonElement>]: any;
+};
 
-const baseClasses = `px-4 py-1 rounded-md`;
+const baseClasses = `px-4 py-1 rounded-md cursor-pointer`;
 
 const primaryClasses = `
   hover:opacity-80
@@ -28,13 +35,18 @@ const brightClasses = `
   active:bg-emerald-900
 `;
 
-export function Button({
-  children,
-  as = 'button',
-  className = '',
-  styleType = 'primary',
-}: IButtonProps): JSX.Element {
-  const buttonClassName = clearClassNames(`
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      as = 'button',
+      className = '',
+      styleType = 'primary',
+      ...otherProps
+    },
+    ref,
+  ): JSX.Element => {
+    const buttonClassName = clearClassNames(`
     ${baseClasses}
     ${clsx(
       styleType === 'primary' && primaryClasses,
@@ -43,5 +55,12 @@ export function Button({
     ${className}
   `);
 
-  return createElement(as, { className: buttonClassName }, children);
-}
+    return createElement(
+      as,
+      { className: buttonClassName, ...otherProps, ref },
+      children,
+    );
+  },
+);
+
+Button.displayName = 'Button';
