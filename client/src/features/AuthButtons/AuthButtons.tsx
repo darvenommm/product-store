@@ -1,20 +1,65 @@
-import Link from 'next/link';
+'use client';
 
-import { Button } from '@/shared';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+
+import {
+  checkAuthentication,
+  selectIsAuthentication,
+  updateIsAuthentication,
+  signOut,
+} from '@/entities/user';
+import { useAppDispatch, useAppSelector, Button } from '@/shared';
 
 interface IAuthButtonsProps {
   className?: string;
 }
 
 export function AuthButtons({ className }: IAuthButtonsProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const globalIsAuth = useAppSelector(selectIsAuthentication);
+
+  const { data: isAuthFromServer, isSuccess } = useQuery({
+    queryKey: ['isAuthentication'],
+    queryFn: checkAuthentication,
+    refetchOnWindowFocus: false,
+    refetchInterval: 1_800_000, // 30 minutes
+  });
+
+  const signOutButtonClickHandler = async (): Promise<void> => {
+    await signOut();
+    dispatch(updateIsAuthentication(false));
+  };
+
+  useEffect((): void => {
+    if (!isSuccess) {
+      return;
+    }
+
+    dispatch(updateIsAuthentication(isAuthFromServer));
+  }, [isSuccess, isAuthFromServer, dispatch]);
+
   return (
     <div className={`flex items-center ${className}`}>
-      <Button as="span" className="mr-2">
-        Sign in
-      </Button>
-      <Button as="span" styleType="bright">
-        <Link href="/sign-up">Sign Up</Link>
-      </Button>
+      {globalIsAuth ? (
+        <Button styleType="bright" onClick={signOutButtonClickHandler}>
+          Sign Out
+        </Button>
+      ) : (
+        <>
+          <Button as="span" className="mr-2">
+            Sign in
+          </Button>
+
+          <Link href="/sign-up">
+            <Button as="span" styleType="bright">
+              Sign Up
+            </Button>
+          </Link>
+        </>
+      )}
     </div>
   );
 }

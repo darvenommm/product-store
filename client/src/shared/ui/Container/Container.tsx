@@ -9,9 +9,9 @@ interface IContainerProps {
 }
 
 export function Container({
+  children,
   as = 'div',
   className = '',
-  children,
 }: IContainerProps): JSX.Element {
   const containerClassName = `max-w-screen-lg w-11/12 m-auto ${className}`;
 

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { userReducer } from '@/entities';
+import { userReducer } from '@/entities/user';
 
 export const store = configureStore({
-  reducer: { user: userReducer },
+  reducer: {
+    user: userReducer,
+  },
   devTools: process.env.NODE_ENV === 'development',
 });
 

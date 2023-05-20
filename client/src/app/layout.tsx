@@ -6,15 +6,13 @@ import { Header } from '@/widgets';
 
 import { Children, Container } from '@/shared';
 
-import { clearClassNames } from '@/shared';
-
 const inter = Inter({ subsets: ['latin'] });
 
-const bodyClassNames = clearClassNames(`
+const bodyClassNames = `
   ${inter.className}
   bg-white dark:bg-black/90
   text-black dark:text-white
-`);
+`;
 
 interface IRootProps {
   children: Children;

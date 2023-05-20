@@ -9,7 +9,12 @@ dotenv.config();
 const ORIGIN = process.env.CLIENT_DOMAIN ?? '*';
 
 export const addMiddlewaresAtStart = (server: Express): void => {
-  server.use(cors({ origin: ORIGIN }));
+  server.use(
+    cors({
+      origin: ORIGIN,
+      credentials: true,
+    }),
+  );
   server.use(json());
   server.use(cookieParser());
 };

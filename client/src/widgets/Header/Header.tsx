@@ -6,7 +6,7 @@ export function Header() {
     <header className="bg py-2">
       <Container
         as="nav"
-        className="flex flex-wrap justify-between items-center "
+        className="flex flex-wrap justify-between items-center"
       >
         <Logo />
         <AuthButtons />

@@ -7,7 +7,7 @@ import { isAdmin, isAuthentication } from './user.middleware.ts';
 export const userRouter = Router();
 
 // auth
-userRouter.get('/is-sign', isAuthentication, userControllers.isSign);
+userRouter.get('/is-sign', userControllers.isSign);
 userRouter.post(
   '/sign-up',
   userValidator.getSignUpValidators(),

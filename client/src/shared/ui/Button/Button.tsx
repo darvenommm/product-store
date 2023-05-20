@@ -6,8 +6,6 @@ import {
 } from 'react';
 import { clsx } from 'clsx';
 
-import { clearClassNames } from '@/shared/helpers';
-
 import { Children } from '@/shared';
 
 type ButtonTypes = 'primary' | 'bright';
@@ -21,7 +19,7 @@ type ButtonProps = {
   [key in keyof ButtonHTMLAttributes<HTMLButtonElement>]: any;
 };
 
-const baseClasses = `px-4 py-1 rounded-md cursor-pointer`;
+const baseClasses = `px-4 py-2 rounded-md cursor-pointer`;
 
 const primaryClasses = `
   hover:opacity-80
@@ -46,14 +44,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ): JSX.Element => {
-    const buttonClassName = clearClassNames(`
+    const buttonClassName = `
     ${baseClasses}
     ${clsx(
       styleType === 'primary' && primaryClasses,
       styleType === 'bright' && brightClasses,
     )}
     ${className}
-  `);
+  `;
 
     return createElement(
       as,

@@ -2,6 +2,7 @@ import ms from 'ms';
 
 import { userService } from './user.service.ts';
 import { SESSION_KEY_NAME } from './user.constants.ts';
+import { getSessionKey } from './user.helpers.ts';
 
 import type { RequestHandler, Response } from 'express';
 import type { IUserDataForCreating, IUserDataForSignIn } from './user.types.ts';
@@ -64,11 +65,14 @@ class UserControllers {
     }
   };
 
-  public isSign: RequestHandler = (_, response, next): void => {
+  public isSign: RequestHandler = async (request, response): Promise<void> => {
     try {
-      response.sendStatus(200);
+      const sessionKey = getSessionKey(request);
+      await userService.findUserBySessionKey(sessionKey);
+
+      response.status(200).json(true);
     } catch (error) {
-      next(error);
+      response.status(200).json(false);
     }
   };
 }

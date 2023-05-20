@@ -7,25 +7,25 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import BeatLoader from 'react-spinners/BeatLoader';
 
+import { useAppDispatch } from '@/shared';
+import { updateIsAuthentication } from '@/entities/user';
 import { Button, Input } from '@/shared';
-import { createUser } from '@/entities';
-
-import type { IUserDataForCreating } from '@/entities';
+import { createUser, IUserDataForCreating } from '@/entities/user';
 
 interface ISignUpFormProps {
   className?: string;
 }
 
 export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const id = useId();
 
   const router = useRouter();
-  const { mutate, isLoading, isError, isSuccess } = useMutation({
+  const { mutate, isLoading, isError } = useMutation({
     mutationFn: createUser,
     onSuccess: (): void => {
-      setTimeout((): void => {
-        router.push('/');
-      }, 3_000);
+      dispatch(updateIsAuthentication(true));
+      router.push('/');
     },
   });
 
@@ -52,11 +52,6 @@ export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
       onSubmit={handleSubmit(formSubmitHandler)}
       autoComplete="off"
     >
-      {isSuccess ? (
-        <span className="block text-green-500 text-4xl text-center">
-          In a few seconds will go to the home page
-        </span>
-      ) : null}
       {isError ? (
         <span className="block text-rose-500 text-4xl text-center">
           There was an error! Please come back here another time
@@ -95,7 +90,9 @@ export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
           },
           validate: {
             isValid: (email) => {
-              return EmailValidator.validate(email) || 'Incorrect email';
+              return (
+                EmailValidator.validate(email) || 'Incorrect email address'
+              );
             },
           },
         })}

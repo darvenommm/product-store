@@ -8,4 +8,5 @@ if (!baseURL) {
 
 export const axios = realAxios.create({
   baseURL,
+  withCredentials: true,
 });
