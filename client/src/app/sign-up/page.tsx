@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'The page for sign up the site',
 };
 
-export default function SignUpPage() {
+export default function SignUpPage(): JSX.Element {
   return <SignUpForm />;
 }

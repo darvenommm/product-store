@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   description: 'The store for buying products',
 };
 
-export default function HomePage() {
+export default function HomePage(): JSX.Element {
   return <div>Hello World from the home page!</div>;
 }

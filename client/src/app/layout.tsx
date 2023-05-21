@@ -21,7 +21,7 @@ interface IRootProps {
   children: Children;
 }
 
-export default function RootLayout({ children }: IRootProps) {
+export default function RootLayout({ children }: IRootProps): JSX.Element {
   const theme = getTheme();
 
   return (

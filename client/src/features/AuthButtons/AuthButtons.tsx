@@ -50,9 +50,9 @@ export function AuthButtons({ className }: IAuthButtonsProps): JSX.Element {
         </Button>
       ) : (
         <>
-          <Button as="span" className="mr-2">
-            Sign in
-          </Button>
+          <Link className="mr-2" href="/sign-in">
+            <Button as="span">Sign in</Button>
+          </Link>
           <Link href="/sign-up">
             <Button as="span" styleType="bright">
               Sign Up

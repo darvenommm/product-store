@@ -3,3 +3,8 @@ export interface IUserDataForCreating {
   email: string;
   password: string;
 }
+
+export interface IUserDataForSignIn {
+  email: string;
+  password: string;
+}
