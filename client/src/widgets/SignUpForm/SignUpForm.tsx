@@ -15,11 +15,7 @@ import { createUser } from '@/entities/user';
 
 import type { IUserDataForCreating } from '@/entities/user';
 
-interface ISignUpFormProps {
-  className?: string;
-}
-
-export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
+export function SignUpForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -45,6 +41,7 @@ export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
           labelText: 'Password*:',
           placeholder: 'Input your password...',
           options: passwordValidation,
+          type: 'password',
         },
       }}
       order={['fullName', 'email', 'password']}

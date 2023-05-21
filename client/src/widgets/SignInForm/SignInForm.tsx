@@ -26,6 +26,7 @@ export function SignInForm(): JSX.Element {
           labelText: 'Password*:',
           placeholder: 'Input your password...',
           options: passwordValidation,
+          type: 'password',
         },
         email: {
           labelText: 'Email*:',
@@ -33,7 +34,7 @@ export function SignInForm(): JSX.Element {
           options: emailValidation,
         },
       }}
-      order={['password', 'email']}
+      order={['email', 'password']}
       submitHandler={signIn}
       afterSuccessHandler={afterSuccessHandler}
       submitButtonText="Sign In"
