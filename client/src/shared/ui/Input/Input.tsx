@@ -1,5 +1,7 @@
 import { HTMLInputTypeAttribute, forwardRef, InputHTMLAttributes } from 'react';
 
+import { clearClassName } from '@/shared/helpers';
+
 type InputProps = {
   id?: string;
   className?: string;
@@ -29,14 +31,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ): JSX.Element => {
     const containerClassName = `${className}`;
-    const inputClassName = `
+    const inputClassName = clearClassName(`
       block p-2 dark:bg-black rounded-md
       border-2 border-black dark:border-transparent
       hover:border-black/30 dark:hover:border-transparent
       focus:outline-none focus-visible:border-black/30
       ${isFullWidth ? 'w-full' : ''}
       ${inputClasses}
-    `;
+    `);
 
     return (
       <div className={containerClassName}>

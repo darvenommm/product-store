@@ -7,9 +7,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import BeatLoader from 'react-spinners/BeatLoader';
 
-import { useAppDispatch } from '@/shared';
+import { useAppDispatch } from '@/shared/hooks';
 import { updateIsAuthentication } from '@/entities/user';
-import { Button, Input } from '@/shared';
+import { Button, Input } from '@/shared/ui';
 import { createUser, IUserDataForCreating } from '@/entities/user';
 
 interface ISignUpFormProps {
@@ -38,13 +38,9 @@ export function SignUpForm({ className }: ISignUpFormProps): JSX.Element {
     mutate(userData);
   };
 
-  const formClassName = `
-    bg
-    flex flex-col gap-8
-    p-6 rounded-lg
-    border-2 border-black dark:border-transparent
-    ${className}
-  `;
+  const formClassName =
+    'bg flex flex-col gap-8 p-6 rounded-lg' +
+    `border-2 border-black dark:border-transparent ${className}`;
 
   return (
     <form

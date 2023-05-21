@@ -1,5 +1,5 @@
-import { AuthButtons } from '@/features';
-import { Container, Logo } from '@/shared';
+import { AuthButtons, ThemeSwitcher } from '@/features';
+import { Container, Logo } from '@/shared/ui';
 
 export function Header() {
   return (
@@ -9,7 +9,10 @@ export function Header() {
         className="flex flex-wrap justify-between items-center"
       >
         <Logo />
-        <AuthButtons />
+        <div className="flex">
+          <ThemeSwitcher />
+          <AuthButtons />
+        </div>
       </Container>
     </header>
   );

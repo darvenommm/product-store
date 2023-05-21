@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import type { Children } from '@/shared';
+import type { Children } from '@/shared/types';
 
 interface IReactQueryProviderProps {
   children: Children;

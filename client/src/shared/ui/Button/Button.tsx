@@ -5,8 +5,9 @@ import {
   ButtonHTMLAttributes,
 } from 'react';
 import { clsx } from 'clsx';
+import { clearClassName } from '@/shared/helpers';
 
-import { Children } from '@/shared';
+import { Children } from '@/shared/types';
 
 type ButtonTypes = 'primary' | 'bright';
 
@@ -21,17 +22,14 @@ type ButtonProps = {
 
 const baseClasses = `px-4 py-2 rounded-md cursor-pointer`;
 
-const primaryClasses = `
-  hover:opacity-80
-  active:opacity-60
-`;
+const primaryClasses = `hover:opacity-80 active:opacity-60`;
 
-const brightClasses = `
+const brightClasses = clearClassName(`
   text-white
   bg-emerald-800
   hover:bg-emerald-700
   active:bg-emerald-900
-`;
+`);
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (

@@ -10,7 +10,8 @@ import {
   updateIsAuthentication,
   signOut,
 } from '@/entities/user';
-import { useAppDispatch, useAppSelector, Button } from '@/shared';
+import { useAppDispatch, useAppSelector } from '@/shared/hooks';
+import { Button } from '@/shared/ui';
 
 interface IAuthButtonsProps {
   className?: string;
@@ -52,7 +53,6 @@ export function AuthButtons({ className }: IAuthButtonsProps): JSX.Element {
           <Button as="span" className="mr-2">
             Sign in
           </Button>
-
           <Link href="/sign-up">
             <Button as="span" styleType="bright">
               Sign Up

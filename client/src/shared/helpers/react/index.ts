@@ -1,0 +1,1 @@
+export { clearClassName } from './clearClassName';
