@@ -1,12 +1,11 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 
-import { cookies, headers } from 'next/headers';
-
 import { StateProvider, ReactQueryProvider } from '@/providers';
 import { Header } from '@/widgets';
 import { Container } from '@/shared/ui';
 import { clearClassName } from '@/shared/helpers';
+import { getTheme } from '@/entities/theme';
 
 import type { Children } from '@/shared/types';
 
@@ -23,9 +22,7 @@ interface IRootProps {
 }
 
 export default function RootLayout({ children }: IRootProps) {
-  const cookieTheme = cookies().get('theme')?.value;
-  const themeFromHeader = headers().get('sec-ch-prefers-color-scheme');
-  const theme = cookieTheme ?? themeFromHeader ?? 'light';
+  const theme = getTheme();
 
   return (
     <html className={theme} lang="en">

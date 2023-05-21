@@ -2,19 +2,21 @@
 
 import { useState } from 'react';
 
-import { getCookieValue } from '@/shared/helpers';
 import { Button } from '@/shared/ui';
+
 import { FaMoon } from 'react-icons/fa';
 import { BsFillSunFill } from 'react-icons/bs';
 
-type Theme = 'light' | 'dark';
+import type { Theme } from '@/entities/theme';
+
+interface IThemeSwitcherProps {
+  theme: Theme;
+}
 
 // theme value contains in cookie by middleware
 // documentElement has theme class by layout
-export function ThemeSwitcher() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    return (getCookieValue(document.cookie) ?? 'light') as Theme;
-  });
+export function ThemeSwitcher({ theme: themeFromParent }: IThemeSwitcherProps) {
+  const [theme, setTheme] = useState<Theme>(themeFromParent);
 
   const ButtonClickHandler = (): void => {
     document.documentElement.classList.remove(theme);
