@@ -35,7 +35,7 @@ class UserService {
       throw ApiError.getBadRequestError('This user is not registered in app');
     }
 
-    const isCorrectPassword = bcrypt.compare(password, user.password);
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
     if (!isCorrectPassword) {
       throw ApiError.getBadRequestError('Password is incorrect');
     }

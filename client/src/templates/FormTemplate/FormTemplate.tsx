@@ -1,19 +1,23 @@
 'use client';
 
+import { useRef } from 'react';
 import { InputHTMLAttributes, useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 import { Button, Input } from '@/shared/ui';
+import { getErrorMessage } from '@/shared/helpers';
 
 import type { FormHTMLAttributes } from 'react';
+import type { IErrorResponse } from '@/shared/types';
 import type {
   UseFormProps,
   RegisterOptions,
   FieldValues,
   Path,
 } from 'react-hook-form';
+import { AxiosError } from 'axios';
 
 type Field = {
   labelText: string;
@@ -35,7 +39,6 @@ type FormTemplateProps<FormData extends FieldValues> = {
 
   order?: (keyof FormData)[];
   formValidatorSettings?: UseFormProps<FormData>;
-  errorMessage?: string;
   className?: string;
 } & {
   [key in keyof FormHTMLAttributes<HTMLFormElement>]: FormHTMLAttributes<HTMLFormElement>[key];
@@ -49,15 +52,23 @@ export function FormTemplate<FormData extends FieldValues>({
 
   order = [],
   formValidatorSettings = { mode: 'onTouched' },
-  errorMessage = 'There was an error! Please come back here another time.',
   className = '',
   ...otherProps
 }: FormTemplateProps<FormData>): JSX.Element {
+  const errorMessage = useRef<null | string>(null);
   const id = useId();
 
-  const { mutate, isLoading, isError } = useMutation<void, unknown, FormData>({
+  const { mutate, isLoading } = useMutation<
+    void,
+    AxiosError<IErrorResponse>,
+    FormData
+  >({
     mutationFn: submitHandler,
     onSuccess: afterSuccessHandler,
+    onError: (error): void => {
+      const message = getErrorMessage(error);
+      errorMessage.current = message || 'An error has occurred!';
+    },
   });
 
   const {
@@ -111,9 +122,9 @@ export function FormTemplate<FormData extends FieldValues>({
       autoComplete="off"
       {...otherProps}
     >
-      {isError ? (
-        <span className="block text-rose-500 text-4xl text-center">
-          {errorMessage}
+      {errorMessage.current ? (
+        <span className="block text-rose-500 text-4xl text-center ">
+          {errorMessage.current}
         </span>
       ) : null}
 
