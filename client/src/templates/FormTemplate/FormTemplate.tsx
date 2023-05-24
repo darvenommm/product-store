@@ -1,48 +1,18 @@
 'use client';
 
 import { useRef } from 'react';
-import { InputHTMLAttributes, useId } from 'react';
+import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import BeatLoader from 'react-spinners/BeatLoader';
-
-import { Button, Input } from '@/shared/ui';
-import { getErrorMessage } from '@/shared/helpers';
-
-import type { FormHTMLAttributes } from 'react';
-import type { IErrorResponse } from '@/shared/types';
-import type {
-  UseFormProps,
-  RegisterOptions,
-  FieldValues,
-  Path,
-} from 'react-hook-form';
 import { AxiosError } from 'axios';
 
-type Field = {
-  labelText: string;
-  placeholder: string;
-  options?: RegisterOptions;
-} & {
-  [key in keyof InputHTMLAttributes<HTMLInputElement>]: InputHTMLAttributes<HTMLInputElement>[key];
-};
+import { Button, Input, Textarea, FileInput } from '@/shared/ui';
+import { getErrorMessage } from '@/shared/helpers';
 
-type Fields<FormData> = {
-  [Key in keyof FormData]: Field;
-};
-
-type FormTemplateProps<FormData extends FieldValues> = {
-  fields: Fields<FormData>;
-  submitHandler: (data: FormData) => Promise<void>;
-  afterSuccessHandler: () => void;
-  submitButtonText: string;
-
-  order?: (keyof FormData)[];
-  formValidatorSettings?: UseFormProps<FormData>;
-  className?: string;
-} & {
-  [key in keyof FormHTMLAttributes<HTMLFormElement>]: FormHTMLAttributes<HTMLFormElement>[key];
-};
+import type { Field, FormTemplateProps } from './FormTemplateTypes';
+import type { IErrorResponse } from '@/shared/types';
+import type { FieldValues, Path } from 'react-hook-form';
 
 export function FormTemplate<FormData extends FieldValues>({
   fields,
@@ -55,8 +25,8 @@ export function FormTemplate<FormData extends FieldValues>({
   className = '',
   ...otherProps
 }: FormTemplateProps<FormData>): JSX.Element {
-  const errorMessage = useRef<null | string>(null);
   const id = useId();
+  const errorMessage = useRef<null | string>(null);
 
   const { mutate, isLoading } = useMutation<
     void,
@@ -94,26 +64,41 @@ export function FormTemplate<FormData extends FieldValues>({
 
   const inputs = Object.entries<Field>(fields)
     .sort(compare)
-    .map(
-      ([
-        name,
-        { labelText, placeholder, options, ...otherProps },
-      ]): JSX.Element => {
-        const inputId = `${id}-${name}`;
+    .map(([name, { options, tagType, ...otherProps }]): JSX.Element => {
+      const elementId = `${id}-${name}`;
 
+      if (tagType === 'fileInput') {
         return (
-          <Input
+          <FileInput
             key={name}
-            id={inputId}
-            labelText={labelText}
-            placeholder={placeholder}
+            id={elementId}
             {...register(name as Path<FormData>, options)}
-            errorText={(errors[name]?.message ?? '') as string}
             {...otherProps}
           />
         );
-      },
-    );
+      }
+
+      if (tagType === 'textarea') {
+        return (
+          <Textarea
+            key={name}
+            id={elementId}
+            {...register(name as Path<FormData>, options)}
+            {...otherProps}
+          />
+        );
+      }
+
+      return (
+        <Input
+          key={name}
+          id={elementId}
+          errorText={(errors[name]?.message ?? '') as string}
+          {...register(name as Path<FormData>, options)}
+          {...otherProps}
+        />
+      );
+    });
 
   return (
     <form

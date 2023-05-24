@@ -2,40 +2,34 @@ import { forwardRef, InputHTMLAttributes } from 'react';
 
 import { clearClassName } from '@/shared/helpers';
 
-type InputProps = {
+type FileInputProps = {
   id?: string;
   className?: string;
-  inputClassName?: string;
   labelText?: string;
   errorText?: string;
-  placeholder?: string;
   isFullWidth?: boolean;
 } & {
   [key in keyof InputHTMLAttributes<HTMLInputElement>]: any;
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
   (
     {
       id = String(Math.random()),
       className = '',
-      inputClassName: inputClasses = '',
       labelText = '',
       errorText = '',
-      placeholder = '',
       isFullWidth = true,
       ...otherProps
     },
     ref,
   ): JSX.Element => {
     const containerClassName = `${className}`;
-    const inputClassName = clearClassName(`
-      block p-2 dark:bg-black rounded-md
+    const FileInputClassName = clearClassName(`
+      px-3 py-2 rounded-md cursor-pointer
+      bg-purple-500 dark:bg-red-700
       border-2 border-black dark:border-transparent
-      hover:border-black/30 dark:hover:border-transparent
-      focus:outline-none focus-visible:border-black/30
-      ${isFullWidth ? 'w-full' : ''}
-      ${inputClasses}
+      text-white
     `);
 
     return (
@@ -45,11 +39,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {labelText}
           </label>
         ) : null}
+        <label className={FileInputClassName} htmlFor={id}>
+          Choose a file...
+        </label>
         <input
-          className={inputClassName}
+          className="sr-only"
           id={id}
-          placeholder={placeholder}
-          type="text"
+          type="file"
+          accept="image/*,.jpg,.jpeg,.png,.webp,.avif,.gif"
           ref={ref}
           {...otherProps}
         />
@@ -61,4 +58,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'Input';
+FileInput.displayName = 'Input';

@@ -1,3 +1,5 @@
+import { getProducts } from '@/entities/product';
+
 import type { Metadata } from 'next/types';
 
 export const metadata: Metadata = {
@@ -5,6 +7,14 @@ export const metadata: Metadata = {
   description: 'The store for buying products',
 };
 
-export default function HomePage(): JSX.Element {
-  return <div>Hello World from the home page!</div>;
+export default async function HomePage(): Promise<JSX.Element> {
+  const data = await getProducts();
+
+  return (
+    <div>
+      {data.map((product) => (
+        <div key={product.id}>{product.title}</div>
+      ))}
+    </div>
+  );
 }

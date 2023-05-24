@@ -1,25 +1,25 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, TextareaHTMLAttributes } from 'react';
 
 import { clearClassName } from '@/shared/helpers';
 
-type InputProps = {
+type TextareaProps = {
   id?: string;
   className?: string;
-  inputClassName?: string;
+  textareaClassName?: string;
   labelText?: string;
   errorText?: string;
   placeholder?: string;
   isFullWidth?: boolean;
 } & {
-  [key in keyof InputHTMLAttributes<HTMLInputElement>]: any;
+  [key in keyof TextareaHTMLAttributes<HTMLTextAreaElement>]: any;
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       id = String(Math.random()),
       className = '',
-      inputClassName: inputClasses = '',
+      textareaClassName: textareaClasses = '',
       labelText = '',
       errorText = '',
       placeholder = '',
@@ -29,13 +29,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ): JSX.Element => {
     const containerClassName = `${className}`;
-    const inputClassName = clearClassName(`
+    const textareaClassName = clearClassName(`
       block p-2 dark:bg-black rounded-md
       border-2 border-black dark:border-transparent
       hover:border-black/30 dark:hover:border-transparent
-      focus:outline-none focus-visible:border-black/30
+      focus:outline-none focus-visible:border-black/30 resize-none
       ${isFullWidth ? 'w-full' : ''}
-      ${inputClasses}
+      ${textareaClasses}
     `);
 
     return (
@@ -45,11 +45,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {labelText}
           </label>
         ) : null}
-        <input
-          className={inputClassName}
+        <textarea
+          className={textareaClassName}
           id={id}
           placeholder={placeholder}
-          type="text"
+          rows={4}
           ref={ref}
           {...otherProps}
         />
@@ -61,4 +61,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'Input';
+Textarea.displayName = 'textarea';
