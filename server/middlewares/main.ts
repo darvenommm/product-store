@@ -1,22 +1,22 @@
-import { Express, json } from 'express';
+import { Express } from 'express';
+
+import {
+  corsMiddleware,
+  cookieMiddleware,
+  jsonMiddleware,
+} from './library/index.ts';
 import { errorMiddleware } from './customs/errorMiddleware.ts';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
 
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-const ORIGIN = process.env.CLIENT_DOMAIN ?? '*';
+import type { RequestHandler } from 'express';
 
 export const addMiddlewaresAtStart = (server: Express): void => {
-  server.use(
-    cors({
-      origin: ORIGIN,
-      credentials: true,
-    }),
-  );
-  server.use(json());
-  server.use(cookieParser());
+  const middlewares: RequestHandler[] = [
+    corsMiddleware,
+    cookieMiddleware,
+    jsonMiddleware,
+  ];
+
+  server.use(middlewares);
 };
 
 export const addMiddlewaresAtEnd = (server: Express): void => {

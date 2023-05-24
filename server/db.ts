@@ -2,7 +2,11 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
-import { createUsersTable, createRolesTable } from '#entities';
+import {
+  createUsersTable,
+  createRolesTable,
+  createProductsTable,
+} from '#entities';
 
 const isDev = process.env.MODE === 'development';
 const isProd = process.env.MODE === 'production';
@@ -37,9 +41,10 @@ const createAdmin = async (): Promise<void> => {
 
 export const Users = createUsersTable(db);
 export const Roles = createRolesTable(db);
+export const Products = createProductsTable(db);
 
 // many-to-many
-const USERS_ROLES = 'UsersRoles';
+const USERS_ROLES = 'Users_Roles';
 Users.belongsToMany(Roles, { through: USERS_ROLES, onDelete: 'SET NULL' });
 Roles.belongsToMany(Users, { through: USERS_ROLES, onDelete: 'SET NULL' });
 

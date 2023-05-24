@@ -1,8 +1,8 @@
 import { Express } from 'express';
 
-import { userRouter } from '#entities';
+import { userRouter, productRouter } from '#entities';
 
 export const addRoutes = (server: Express): void => {
-  const routes = [userRouter];
+  const routes = [userRouter, productRouter];
   server.use('/api', routes);
 };
