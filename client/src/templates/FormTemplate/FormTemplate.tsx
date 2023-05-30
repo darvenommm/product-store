@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import BeatLoader from 'react-spinners/BeatLoader';
@@ -21,11 +20,10 @@ export function FormTemplate<FormData extends FieldValues>({
   submitButtonText,
 
   order = [],
-  formValidatorSettings = { mode: 'onTouched' },
+  formValidatorSettings = { mode: 'onSubmit' },
   className = '',
   ...otherProps
 }: FormTemplateProps<FormData>): JSX.Element {
-  const id = useId();
   const errorMessage = useRef<null | string>(null);
 
   const { mutate, isLoading } = useMutation<
@@ -54,7 +52,7 @@ export function FormTemplate<FormData extends FieldValues>({
     'bg flex flex-col gap-8 p-6 rounded-lg ' +
     `border-2 border-black dark:border-transparent ${className}`;
 
-  // function for sort input by order value
+  // function for sort inputs by order value
   const compare = (a: [string, Field], b: [string, Field]) => {
     const aIndex = order.indexOf(a[0]) + 1 || Infinity;
     const bIndex = order.indexOf(b[0]) + 1 || Infinity;
@@ -65,13 +63,13 @@ export function FormTemplate<FormData extends FieldValues>({
   const inputs = Object.entries<Field>(fields)
     .sort(compare)
     .map(([name, { options, tagType, ...otherProps }]): JSX.Element => {
-      const elementId = `${id}-${name}`;
+      const errorText = (errors[name]?.message ?? '') as string;
 
       if (tagType === 'fileInput') {
         return (
           <FileInput
             key={name}
-            id={elementId}
+            errorText={errorText}
             {...register(name as Path<FormData>, options)}
             {...otherProps}
           />
@@ -82,7 +80,7 @@ export function FormTemplate<FormData extends FieldValues>({
         return (
           <Textarea
             key={name}
-            id={elementId}
+            errorText={errorText}
             {...register(name as Path<FormData>, options)}
             {...otherProps}
           />
@@ -92,8 +90,7 @@ export function FormTemplate<FormData extends FieldValues>({
       return (
         <Input
           key={name}
-          id={elementId}
-          errorText={(errors[name]?.message ?? '') as string}
+          errorText={errorText}
           {...register(name as Path<FormData>, options)}
           {...otherProps}
         />

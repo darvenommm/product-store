@@ -3,7 +3,6 @@ import { forwardRef, TextareaHTMLAttributes } from 'react';
 import { clearClassName } from '@/shared/helpers';
 
 type TextareaProps = {
-  id?: string;
   className?: string;
   textareaClassName?: string;
   labelText?: string;
@@ -17,7 +16,6 @@ type TextareaProps = {
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
-      id = String(Math.random()),
       className = '',
       textareaClassName: textareaClasses = '',
       labelText = '',
@@ -28,7 +26,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref,
   ): JSX.Element => {
-    const containerClassName = `${className}`;
+    const parentClassName = `${className}`;
     const textareaClassName = clearClassName(`
       block p-2 dark:bg-black rounded-md
       border-2 border-black dark:border-transparent
@@ -39,20 +37,19 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     `);
 
     return (
-      <div className={containerClassName}>
-        {labelText ? (
-          <label className="block capitalize mb-2" htmlFor={id}>
-            {labelText}
-          </label>
-        ) : null}
-        <textarea
-          className={textareaClassName}
-          id={id}
-          placeholder={placeholder}
-          rows={4}
-          ref={ref}
-          {...otherProps}
-        />
+      <div className={parentClassName}>
+        <label>
+          {labelText ? (
+            <span className="block capitalize mb-2">{labelText}</span>
+          ) : null}
+          <textarea
+            className={textareaClassName}
+            placeholder={placeholder}
+            rows={4}
+            ref={ref}
+            {...otherProps}
+          />
+        </label>
         {errorText ? (
           <span className="block text-rose-500">{errorText}</span>
         ) : null}

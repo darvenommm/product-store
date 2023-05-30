@@ -3,7 +3,6 @@ import { forwardRef, InputHTMLAttributes } from 'react';
 import { clearClassName } from '@/shared/helpers';
 
 type InputProps = {
-  id?: string;
   className?: string;
   inputClassName?: string;
   labelText?: string;
@@ -17,7 +16,6 @@ type InputProps = {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      id = String(Math.random()),
       className = '',
       inputClassName: inputClasses = '',
       labelText = '',
@@ -28,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ): JSX.Element => {
-    const containerClassName = `${className}`;
+    const parentClassName = `${className}`;
     const inputClassName = clearClassName(`
       block p-2 dark:bg-black rounded-md
       border-2 border-black dark:border-transparent
@@ -39,23 +37,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     `);
 
     return (
-      <div className={containerClassName}>
-        {labelText ? (
-          <label className="block capitalize mb-2" htmlFor={id}>
-            {labelText}
-          </label>
-        ) : null}
-        <input
-          className={inputClassName}
-          id={id}
-          placeholder={placeholder}
-          type="text"
-          ref={ref}
-          {...otherProps}
-        />
-        {errorText ? (
-          <span className="block text-rose-500">{errorText}</span>
-        ) : null}
+      <div className={parentClassName}>
+        <label>
+          {labelText ? (
+            <span className="block capitalize mb-2">{labelText}</span>
+          ) : null}
+          <input
+            className={inputClassName}
+            placeholder={placeholder}
+            type="text"
+            ref={ref}
+            {...otherProps}
+          />
+          {errorText ? (
+            <span className="block text-rose-500">{errorText}</span>
+          ) : null}
+        </label>
       </div>
     );
   },

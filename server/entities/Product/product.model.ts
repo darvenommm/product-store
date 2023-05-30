@@ -43,7 +43,7 @@ export const createProductsTable = (sequelize: Sequelize): typeof Product => {
         },
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull: false,
         validate: {
           min: 1,

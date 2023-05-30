@@ -27,10 +27,11 @@ type FileInputField = {
   [key in keyof InputHTMLAttributes<HTMLInputElement>]: InputHTMLAttributes<HTMLInputElement>[key];
 };
 
-export type Field = {
-  labelText: string;
-  options?: RegisterOptions;
-} & (InputField | TextAreaField | FileInputField);
+export type Field = { labelText: string; options?: RegisterOptions } & (
+  | InputField
+  | TextAreaField
+  | FileInputField
+);
 
 export type Fields<FormData> = {
   [Key in keyof FormData]: Field;

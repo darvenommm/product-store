@@ -9,8 +9,8 @@ class UserValidator extends Validator {
     return body('fullName')
       .isString()
       .trim()
-      .isLength({ min: 4, max: 64 })
-      .escape();
+      .escape()
+      .isLength({ min: 4, max: 64 });
   };
 
   private getEmailValidator = (): ValidationChain => {
@@ -21,8 +21,8 @@ class UserValidator extends Validator {
     return body('password')
       .isString()
       .trim()
-      .isLength({ min: 6, max: 32 })
-      .escape();
+      .escape()
+      .isLength({ min: 6, max: 32 });
   };
 
   public getSignUpValidators = (): Array<ValidationChain | RequestHandler> => {

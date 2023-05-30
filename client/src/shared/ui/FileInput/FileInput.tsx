@@ -1,13 +1,13 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+'use client';
 
-import { clearClassName } from '@/shared/helpers';
+import { forwardRef, InputHTMLAttributes, useState } from 'react';
+
+import type { ChangeEvent } from 'react';
 
 type FileInputProps = {
-  id?: string;
   className?: string;
   labelText?: string;
   errorText?: string;
-  isFullWidth?: boolean;
 } & {
   [key in keyof InputHTMLAttributes<HTMLInputElement>]: any;
 };
@@ -15,41 +15,45 @@ type FileInputProps = {
 export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
   (
     {
-      id = String(Math.random()),
       className = '',
-      labelText = '',
+      labelText: titleText = '',
       errorText = '',
-      isFullWidth = true,
       ...otherProps
     },
     ref,
   ): JSX.Element => {
-    const containerClassName = `${className}`;
-    const FileInputClassName = clearClassName(`
-      px-3 py-2 rounded-md cursor-pointer
-      bg-purple-500 dark:bg-red-700
-      border-2 border-black dark:border-transparent
-      text-white
-    `);
+    const [file, setFile] = useState<File | null>(null);
+    const fileInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files) {
+        setFile(event.target.files[0]);
+      }
+    };
+
+    const parentClassName = `${className}`;
+    const titleClassName = 'block capitalize mb-2 self-stretch cursor-pointer';
+    const fileInputClassName =
+      'self-start px-3 py-2 rounded-md cursor-pointer ' +
+      'bg-purple-500 dark:bg-red-700 border-2 border-black ' +
+      'dark:border-transparent text-white mb-1';
 
     return (
-      <div className={containerClassName}>
-        {labelText ? (
-          <label className="block capitalize mb-2" htmlFor={id}>
-            {labelText}
-          </label>
-        ) : null}
-        <label className={FileInputClassName} htmlFor={id}>
-          Choose a file...
+      <div className={parentClassName}>
+        <label className="flex flex-col cursor-pointer">
+          {titleText ? (
+            <span className={titleClassName}>{titleText}</span>
+          ) : null}
+          <span className={fileInputClassName}>
+            {!file ? 'Choose file...' : 'File is selected...'}
+          </span>
+          <input
+            className="sr-only"
+            type="file"
+            accept="image/*,.jpg,.jpeg,.png,.webp,.avif,.gif"
+            onInput={fileInputChangeHandler}
+            ref={ref}
+            {...otherProps}
+          />
         </label>
-        <input
-          className="sr-only"
-          id={id}
-          type="file"
-          accept="image/*,.jpg,.jpeg,.png,.webp,.avif,.gif"
-          ref={ref}
-          {...otherProps}
-        />
         {errorText ? (
           <span className="block text-rose-500">{errorText}</span>
         ) : null}
@@ -58,4 +62,4 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
   },
 );
 
-FileInput.displayName = 'Input';
+FileInput.displayName = 'FileInput';

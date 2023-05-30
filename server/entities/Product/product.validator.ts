@@ -9,16 +9,16 @@ class ProductValidator extends Validator {
     return body('title')
       .isString()
       .trim()
-      .isLength({ min: 6, max: 255 })
-      .escape();
+      .escape()
+      .isLength({ min: 6, max: 255 });
   };
 
   private getDescriptionValidator = (): ValidationChain => {
     return body('description')
       .isString()
       .trim()
-      .isLength({ min: 12, max: 5000 })
-      .escape();
+      .escape()
+      .isLength({ min: 12, max: 5000 });
   };
 
   private getPriceValidator = (): ValidationChain => {
