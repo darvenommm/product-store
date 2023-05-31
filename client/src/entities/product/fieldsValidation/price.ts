@@ -10,6 +10,6 @@ export const priceValidation: RegisterOptions = {
   },
   min: {
     value: 1,
-    message: 'Price must be at least 1',
+    message: 'Price must be positive!',
   },
 };

@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { AxiosError } from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Button, Input, Textarea, FileInput } from '@/shared/ui';
 import { getErrorMessage } from '@/shared/helpers';
@@ -18,24 +19,28 @@ export function FormTemplate<FormData extends FieldValues>({
   submitHandler,
   afterSuccessHandler,
   submitButtonText,
+  successTextMessage,
 
   order = [],
   formValidatorSettings = { mode: 'onSubmit' },
   className = '',
   ...otherProps
 }: FormTemplateProps<FormData>): JSX.Element {
-  const errorMessage = useRef<null | string>(null);
-
   const { mutate, isLoading } = useMutation<
     void,
     AxiosError<IErrorResponse>,
     FormData
   >({
     mutationFn: submitHandler,
-    onSuccess: afterSuccessHandler,
+    onSuccess: (): void => {
+      toast.success(successTextMessage, { delay: 1, autoClose: 1_000 });
+      setTimeout((): void => {
+        afterSuccessHandler();
+      }, 2_100);
+    },
     onError: (error): void => {
       const message = getErrorMessage(error);
-      errorMessage.current = message || 'An error has occurred!';
+      toast.error(message, { delay: 1 });
     },
   });
 
@@ -66,10 +71,14 @@ export function FormTemplate<FormData extends FieldValues>({
       const errorText = (errors[name]?.message ?? '') as string;
 
       if (tagType === 'fileInput') {
+        const textAfter =
+          'textAfter' in otherProps ? otherProps.textAfter : undefined;
+
         return (
           <FileInput
             key={name}
             errorText={errorText}
+            textAfter={textAfter}
             {...register(name as Path<FormData>, options)}
             {...otherProps}
           />
@@ -98,27 +107,24 @@ export function FormTemplate<FormData extends FieldValues>({
     });
 
   return (
-    <form
-      className={formClassName}
-      onSubmit={handleSubmit(formSubmitHandler)}
-      autoComplete="off"
-      {...otherProps}
-    >
-      {errorMessage.current ? (
-        <span className="block text-rose-500 text-4xl text-center ">
-          {errorMessage.current}
-        </span>
-      ) : null}
+    <>
+      <form
+        className={formClassName}
+        onSubmit={handleSubmit(formSubmitHandler)}
+        autoComplete="off"
+        {...otherProps}
+      >
+        {inputs}
 
-      {inputs}
-
-      <Button styleType="bright" disabled={isLoading}>
-        {isLoading ? (
-          <BeatLoader className="pt-1" color="white" />
-        ) : (
-          submitButtonText
-        )}
-      </Button>
-    </form>
+        <Button styleType="bright" disabled={isLoading}>
+          {isLoading ? (
+            <BeatLoader className="pt-1" color="white" />
+          ) : (
+            submitButtonText
+          )}
+        </Button>
+      </form>
+      <ToastContainer position="bottom-right" theme="colored" />
+    </>
   );
 }

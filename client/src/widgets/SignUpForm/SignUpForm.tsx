@@ -48,6 +48,7 @@ export function SignUpForm(): JSX.Element {
       submitHandler={createUser}
       afterSuccessHandler={afterSuccessHandler}
       submitButtonText="Sign Up"
+      successTextMessage="You are sign up"
     />
   );
 }

@@ -32,6 +32,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       border-2 border-black dark:border-transparent
       hover:border-black/30 dark:hover:border-transparent
       focus:outline-none focus-visible:border-black/30
+      [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0
+      [&::-webkit-outer-spin-button]:appearance-none
+      [&::-webkit-inner-spin-button]:m-0
+      [&::-webkit-inner-spin-button]:appearance-none
       ${isFullWidth ? 'w-full' : ''}
       ${inputClasses}
     `);
@@ -40,7 +44,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={parentClassName}>
         <label>
           {labelText ? (
-            <span className="block capitalize mb-2">{labelText}</span>
+            <span className="block capitalize mb-2 cursor-pointer">
+              {labelText}
+            </span>
           ) : null}
           <input
             className={inputClassName}

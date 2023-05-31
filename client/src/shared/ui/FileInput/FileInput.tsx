@@ -1,12 +1,15 @@
 'use client';
 
-import { forwardRef, InputHTMLAttributes, useState } from 'react';
+import { forwardRef, InputHTMLAttributes, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 import type { ChangeEvent } from 'react';
 
 type FileInputProps = {
   className?: string;
   labelText?: string;
+  placeholder?: string;
+  textAfter?: string;
   errorText?: string;
 } & {
   [key in keyof InputHTMLAttributes<HTMLInputElement>]: any;
@@ -17,6 +20,8 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
     {
       className = '',
       labelText: titleText = '',
+      placeholder = 'Choose file...',
+      textAfter = 'File is selected',
       errorText = '',
       ...otherProps
     },
@@ -29,10 +34,22 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       }
     };
 
+    const [imageUrl, setImageUrl] = useState<string>('');
+    useEffect(() => {
+      if (file) {
+        setImageUrl(URL.createObjectURL(file));
+      }
+
+      return (): void => {
+        URL.revokeObjectURL(imageUrl);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file]);
+
     const parentClassName = `${className}`;
     const titleClassName = 'block capitalize mb-2 self-stretch cursor-pointer';
     const fileInputClassName =
-      'self-start px-3 py-2 rounded-md cursor-pointer ' +
+      'inline-block self-start px-3 py-2 rounded-md cursor-pointer ' +
       'bg-purple-500 dark:bg-red-700 border-2 border-black ' +
       'dark:border-transparent text-white mb-1';
 
@@ -42,9 +59,20 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
           {titleText ? (
             <span className={titleClassName}>{titleText}</span>
           ) : null}
-          <span className={fileInputClassName}>
-            {!file ? 'Choose file...' : 'File is selected...'}
-          </span>
+          <div>
+            <span className={fileInputClassName}>
+              {!file ? placeholder : textAfter}
+            </span>
+            {imageUrl ? (
+              <Image
+                className="mt-2"
+                src={imageUrl}
+                alt="chosen file."
+                width={160}
+                height={160}
+              />
+            ) : null}
+          </div>
           <input
             className="sr-only"
             type="file"

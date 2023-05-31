@@ -40,7 +40,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className={parentClassName}>
         <label>
           {labelText ? (
-            <span className="block capitalize mb-2">{labelText}</span>
+            <span className="block capitalize mb-2 cursor-pointer">
+              {labelText}
+            </span>
           ) : null}
           <textarea
             className={textareaClassName}

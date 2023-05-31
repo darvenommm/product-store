@@ -38,6 +38,7 @@ export function SignInForm(): JSX.Element {
       submitHandler={signIn}
       afterSuccessHandler={afterSuccessHandler}
       submitButtonText="Sign In"
+      successTextMessage="You are sign in"
     />
   );
 }

@@ -25,22 +25,26 @@ export function CreateProduct(): JSX.Element {
       fields={{
         title: {
           labelText: 'Title*:',
-          placeholder: 'Input your title...',
+          placeholder: "Input product's title...",
           options: titleValidation,
         },
         price: {
           labelText: 'Price*:',
-          placeholder: 'Input your price...',
+          placeholder: "Input product's price...",
           options: priceValidation,
+          type: 'number',
+          min: 1,
         },
         photo: {
           tagType: 'fileInput',
           labelText: 'Photo*:',
+          placeholder: "Choose product's photo...",
+          textAfter: "Product's photo is selected",
           options: photoValidation,
         },
         description: {
           labelText: 'Description*:',
-          placeholder: 'Input your description...',
+          placeholder: "Input product's description...",
           tagType: 'textarea',
           options: descriptionValidation,
         },
@@ -49,6 +53,7 @@ export function CreateProduct(): JSX.Element {
       afterSuccessHandler={afterSuccessHandler}
       submitHandler={createProduct}
       submitButtonText="Create product"
+      successTextMessage="product created successfully"
     />
   );
 }
