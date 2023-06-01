@@ -1,7 +1,7 @@
 import { cookies, headers } from 'next/headers';
 import { Theme } from './types';
 
-export function getTheme(): Theme {
+export function getThemeOnServer(): Theme {
   const cookieTheme = cookies().get('theme')?.value;
   const themeFromPreferScheme = headers().get('sec-ch-prefers-color-scheme');
 

@@ -1,11 +1,17 @@
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Inter } from 'next/font/google';
 
-import { StateProvider, ReactQueryProvider } from '@/providers';
+import {
+  StateProvider,
+  ReactQueryProvider,
+  ToastifyProvider,
+} from '@/providers';
 import { Header } from '@/widgets';
 import { Container } from '@/shared/ui';
 import { clearClassName } from '@/shared/helpers';
-import { getTheme } from '@/entities/theme';
+import { getThemeOnServer } from '@/entities/theme';
 
 import type { Children } from '@/shared/types';
 
@@ -22,17 +28,19 @@ interface IRootProps {
 }
 
 export default function RootLayout({ children }: IRootProps): JSX.Element {
-  const theme = getTheme();
+  const theme = getThemeOnServer();
 
   return (
     <html className={theme} lang="en">
       <body className={bodyClassNames}>
         <StateProvider>
           <ReactQueryProvider>
-            <Header />
-            <Container as="main" className="mt-5">
-              {children}
-            </Container>
+            <ToastifyProvider>
+              <Header />
+              <Container as="main" className="mt-5">
+                {children}
+              </Container>
+            </ToastifyProvider>
           </ReactQueryProvider>
         </StateProvider>
       </body>

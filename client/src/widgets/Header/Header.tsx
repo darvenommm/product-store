@@ -1,7 +1,7 @@
 import { AuthButtons, ThemeSwitcher } from '@/features';
 import { Logo, ProductCreateButton } from '@/components';
 import { Container } from '@/shared/ui';
-import { getTheme } from '@/entities/theme';
+import { getThemeOnServer } from '@/entities/theme';
 
 export function Header() {
   return (
@@ -12,7 +12,7 @@ export function Header() {
       >
         <Logo />
         <div className="flex flex-wrap items-center gap-2">
-          <ThemeSwitcher theme={getTheme()} />
+          <ThemeSwitcher theme={getThemeOnServer()} />
           <ProductCreateButton />
           <AuthButtons />
         </div>

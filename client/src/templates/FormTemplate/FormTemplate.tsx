@@ -4,8 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { AxiosError } from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import { Button, Input, Textarea, FileInput } from '@/shared/ui';
 import { getErrorMessage } from '@/shared/helpers';
@@ -33,14 +32,12 @@ export function FormTemplate<FormData extends FieldValues>({
   >({
     mutationFn: submitHandler,
     onSuccess: (): void => {
-      toast.success(successTextMessage, { delay: 1, autoClose: 1_000 });
-      setTimeout((): void => {
-        afterSuccessHandler();
-      }, 2_100);
+      afterSuccessHandler();
+      toast.success(successTextMessage, { delay: 500 });
     },
     onError: (error): void => {
       const message = getErrorMessage(error);
-      toast.error(message, { delay: 1 });
+      toast.error(message);
     },
   });
 
@@ -124,7 +121,6 @@ export function FormTemplate<FormData extends FieldValues>({
           )}
         </Button>
       </form>
-      <ToastContainer position="bottom-right" theme="colored" />
     </>
   );
 }
