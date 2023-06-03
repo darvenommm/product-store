@@ -1,5 +1,8 @@
 import { CreateProduct } from '@/widgets';
 
+import { Info } from '@/components';
+import { CheckAuthentication } from '@/features/user';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,5 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default function CreateProductPage(): JSX.Element {
-  return <CreateProduct />;
+  return (
+    <CheckAuthentication
+      type="redirect"
+      redirect="/sign-in"
+      infoMessage="You must be authenticated"
+    >
+      <CreateProduct />
+    </CheckAuthentication>
+  );
 }
