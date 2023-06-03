@@ -1,9 +1,8 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import cors from 'cors';
 
-const ORIGIN = process.env.CLIENT_DOMAIN ?? '*';
+import { getClientUrl } from '#helpers';
+
+const ORIGIN = getClientUrl() ?? '*';
 
 export const corsMiddleware = cors({
   origin: ORIGIN,

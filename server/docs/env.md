@@ -6,3 +6,4 @@
 - DB_PASSWORD: string;
 - DB_PORT: string;
 - CLIENT_DOMAIN: string;
+- SERVER_URL: string;

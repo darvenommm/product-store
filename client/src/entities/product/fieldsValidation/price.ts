@@ -12,4 +12,8 @@ export const priceValidation: RegisterOptions = {
     value: 1,
     message: 'Price must be positive!',
   },
+  max: {
+    value: 15_000_000,
+    message: 'Price must be less than 15 000 000!',
+  },
 };

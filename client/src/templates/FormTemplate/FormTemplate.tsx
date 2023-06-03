@@ -37,7 +37,7 @@ export function FormTemplate<FormData extends FieldValues>({
     },
     onError: (error): void => {
       const message = getErrorMessage(error);
-      toast.error(message);
+      toast.error(message, { delay: 500 });
     },
   });
 
@@ -51,7 +51,7 @@ export function FormTemplate<FormData extends FieldValues>({
   };
 
   const formClassName =
-    'bg flex flex-col gap-8 p-6 rounded-lg ' +
+    'bg flex flex-col gap-8 p-6 rounded-lg mb-3 ' +
     `border-2 border-black dark:border-transparent ${className}`;
 
   // function for sort inputs by order value
@@ -104,23 +104,21 @@ export function FormTemplate<FormData extends FieldValues>({
     });
 
   return (
-    <>
-      <form
-        className={formClassName}
-        onSubmit={handleSubmit(formSubmitHandler)}
-        autoComplete="off"
-        {...otherProps}
-      >
-        {inputs}
+    <form
+      className={formClassName}
+      onSubmit={handleSubmit(formSubmitHandler)}
+      autoComplete="off"
+      {...otherProps}
+    >
+      {inputs}
 
-        <Button styleType="bright" disabled={isLoading}>
-          {isLoading ? (
-            <BeatLoader className="pt-1" color="white" />
-          ) : (
-            submitButtonText
-          )}
-        </Button>
-      </form>
-    </>
+      <Button styleType="bright" disabled={isLoading}>
+        {isLoading ? (
+          <BeatLoader className="pt-1" color="white" />
+        ) : (
+          submitButtonText
+        )}
+      </Button>
+    </form>
   );
 }

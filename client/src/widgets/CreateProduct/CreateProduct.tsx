@@ -53,7 +53,7 @@ export function CreateProduct(): JSX.Element {
       afterSuccessHandler={afterSuccessHandler}
       submitHandler={createProduct}
       submitButtonText="Create product"
-      successTextMessage="Product created successfully!"
+      successTextMessage="Product created successfully! Soon your product will be available."
     />
   );
 }

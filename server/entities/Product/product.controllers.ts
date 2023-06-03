@@ -6,6 +6,7 @@ import {
   IProductDataForCreating,
 } from './product.types.ts';
 import { ApiError } from '#errors';
+import { getServerUrl } from '#helpers';
 
 class ProductController {
   public getAllProducts: RequestHandler = async (
@@ -28,7 +29,9 @@ class ProductController {
   ): Promise<void> => {
     try {
       const productData: IProductDataFromClient = request.body;
-      const fileUrl = request.file?.path;
+      const serverUrl = getServerUrl();
+      const fileUrl = `${serverUrl}/photos/${request.file?.filename}`;
+
       if (!fileUrl) {
         throw ApiError.getBadRequestError('Not found file in request');
       }

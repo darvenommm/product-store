@@ -10,7 +10,7 @@ export const titleValidation: RegisterOptions = {
     message: 'Title must be at least 6 characters long',
   },
   maxLength: {
-    value: 255,
-    message: 'Title must be at most 255 characters long',
+    value: 128,
+    message: 'Title must be at most 128 characters long',
   },
 };

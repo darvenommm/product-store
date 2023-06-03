@@ -31,7 +31,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       block p-2 dark:bg-black rounded-md
       border-2 border-black dark:border-transparent
       hover:border-black/30 dark:hover:border-transparent
-      focus:outline-none focus-visible:border-black/30 resize-none
+      focus:outline-none focus-visible:border-black/30 resize-y
       ${isFullWidth ? 'w-full' : ''}
       ${textareaClasses}
     `);

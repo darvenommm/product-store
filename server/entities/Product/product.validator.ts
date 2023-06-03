@@ -10,7 +10,7 @@ class ProductValidator extends Validator {
       .isString()
       .trim()
       .escape()
-      .isLength({ min: 6, max: 255 });
+      .isLength({ min: 6, max: 128 });
   };
 
   private getDescriptionValidator = (): ValidationChain => {
@@ -22,7 +22,10 @@ class ProductValidator extends Validator {
   };
 
   private getPriceValidator = (): ValidationChain => {
-    return body('price').isNumeric().isInt({ min: 1 }).escape();
+    return body('price')
+      .isNumeric()
+      .isInt({ min: 1, max: 15_000_000 })
+      .escape();
   };
 
   public getCreateProductValidators = (): Array<

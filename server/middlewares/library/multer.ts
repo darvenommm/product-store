@@ -1,16 +1,13 @@
 import multer from 'multer';
 import bytes from 'bytes';
-import {
-  resolve,
-  extname as getExtname,
-  basename as getBasename,
-} from 'node:path';
+import { resolve, parse } from 'node:path';
 
 const storage = multer.diskStorage({
   destination: resolve('static', 'photos'),
   filename: (_, file, cb) => {
-    const basename = getBasename(file.originalname);
-    const extname = getExtname(file.originalname);
+    const filePath = parse(file.originalname);
+    const basename = filePath.name.replaceAll(/\s/g, '-');
+    const extname = filePath.ext;
 
     cb(null, `${basename}-${Date.now()}${extname}`);
   },
