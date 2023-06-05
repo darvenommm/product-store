@@ -6,23 +6,15 @@ import type { RequestHandler } from 'express';
 
 class UserValidator extends Validator {
   private getFullNameValidator = (): ValidationChain => {
-    return body('fullName')
-      .isString()
-      .trim()
-      .escape()
-      .isLength({ min: 4, max: 64 });
+    return body('fullName').isString().trim().isLength({ min: 4, max: 64 });
   };
 
   private getEmailValidator = (): ValidationChain => {
-    return body('email').isString().trim().isEmail().escape().toLowerCase();
+    return body('email').isString().trim().isEmail().toLowerCase();
   };
 
   private getPasswordValidator = (): ValidationChain => {
-    return body('password')
-      .isString()
-      .trim()
-      .escape()
-      .isLength({ min: 6, max: 32 });
+    return body('password').isString().trim().isLength({ min: 6, max: 32 });
   };
 
   public getSignUpValidators = (): Array<ValidationChain | RequestHandler> => {

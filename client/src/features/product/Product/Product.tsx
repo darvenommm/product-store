@@ -40,7 +40,7 @@ export function Product({
         </div>
         <div className="flex justify-between">
           <span className={titleClassName}>Price:</span>
-          <p className="text-rose-800 font-bold">{price}</p>
+          <p className="text-rose-800 font-bold">{price}$</p>
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ export function CreateProduct(): JSX.Element {
           options: titleValidation,
         },
         price: {
-          labelText: 'Price*:',
+          labelText: 'Price($)*:',
           placeholder: "Input product's price...",
           options: priceValidation,
           type: 'number',
@@ -41,6 +41,7 @@ export function CreateProduct(): JSX.Element {
           placeholder: "Choose product's photo...",
           textAfter: "Product's photo is selected",
           options: photoValidation,
+          accept: '.jpg,.jpeg,.png,.webp,.avif',
         },
         description: {
           labelText: 'Description*:',

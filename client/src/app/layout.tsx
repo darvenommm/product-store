@@ -7,11 +7,12 @@ import {
   StateProvider,
   ReactQueryProvider,
   ToastifyProvider,
+  ThemeProvider,
 } from '@/providers';
 import { Header } from '@/widgets';
 import { Container } from '@/shared/ui';
 import { clearClassName } from '@/shared/helpers';
-import { getThemeOnServer } from '@/entities/theme';
+import { getThemeOnServer } from '@/entities/theme/onlyServer';
 
 import type { Children } from '@/shared/types';
 
@@ -27,6 +28,8 @@ interface IRootProps {
   children: Children;
 }
 
+// !!!! provider order -> stateProvider | themeProvider | ToastifyProvider !!!!
+
 export default function RootLayout({ children }: IRootProps): JSX.Element {
   const theme = getThemeOnServer();
 
@@ -35,12 +38,14 @@ export default function RootLayout({ children }: IRootProps): JSX.Element {
       <body className={bodyClassNames}>
         <StateProvider>
           <ReactQueryProvider>
-            <ToastifyProvider>
-              <Header />
-              <Container as="main" className="mt-5">
-                {children}
-              </Container>
-            </ToastifyProvider>
+            <ThemeProvider startTheme={theme}>
+              <ToastifyProvider>
+                <Header />
+                <Container as="main" className="mt-5">
+                  {children}
+                </Container>
+              </ToastifyProvider>
+            </ThemeProvider>
           </ReactQueryProvider>
         </StateProvider>
       </body>

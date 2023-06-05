@@ -1,22 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-
 import { Button } from '@/shared/ui';
+import { useAppSelector, useAppDispatch } from '@/shared/hooks';
+import { selectTheme, setTheme } from '@/entities/theme';
 
-import { FaMoon } from 'react-icons/fa';
-import { BsFillSunFill } from 'react-icons/bs';
+import { FaMoon as Moon } from 'react-icons/fa';
+import { BsFillSunFill as Sun } from 'react-icons/bs';
 
 import type { Theme } from '@/entities/theme';
 
-interface IThemeSwitcherProps {
-  theme: Theme;
+interface IThemeSwitcher {
+  startTheme: Theme;
 }
 
-// theme value contains in cookie by middleware
-// documentElement has theme class by layout
-export function ThemeSwitcher({ theme: themeFromParent }: IThemeSwitcherProps) {
-  const [theme, setTheme] = useState<Theme>(themeFromParent);
+// 1) start theme is given from server (from user cookie or prefer-scheme default light)
+// 2) component challenge is switching the theme in the cookie and the storage
+export function ThemeSwitcher({ startTheme }: IThemeSwitcher) {
+  const dispatch = useAppDispatch();
+
+  const theme = useAppSelector(selectTheme) ?? startTheme;
 
   const ButtonClickHandler = (): void => {
     document.documentElement.classList.remove(theme);
@@ -25,12 +27,13 @@ export function ThemeSwitcher({ theme: themeFromParent }: IThemeSwitcherProps) {
 
     document.cookie = `theme=${newTheme}; max-age=${63_072_000}`; // 2 years
     document.documentElement.classList.add(newTheme);
-    setTheme(newTheme);
+
+    dispatch(setTheme(newTheme));
   };
 
   return (
     <Button onClick={ButtonClickHandler}>
-      {theme === 'light' ? <FaMoon size={25} /> : <BsFillSunFill size={25} />}
+      {theme === 'light' ? <Moon size={25} /> : <Sun size={25} />}
     </Button>
   );
 }

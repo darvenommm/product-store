@@ -15,7 +15,7 @@ export default function CreateProductPage(): JSX.Element {
     <CheckAuthentication
       type="redirect"
       redirect="/sign-in"
-      infoMessage="You must be authenticated"
+      infoMessage="You must be authenticated to create product"
     >
       <CreateProduct />
     </CheckAuthentication>
