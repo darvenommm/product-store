@@ -2,13 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 
-import { FormTemplate } from '@/templates';
-import { signIn } from '@/entities/user';
-import { useAppDispatch } from '@/shared/hooks';
-import { updateIsAuthentication } from '@/entities/user';
-import { emailValidation, passwordValidation } from '@/entities/user';
+import { FormTemplate } from '@/templates/FormTemplate';
+import { signIn } from '@/entities/user/api';
+import { useAppDispatch } from '@/shared/hooks/redux';
+import { updateIsAuthentication } from '@/entities/user/userSlice';
+import {
+  emailValidation,
+  passwordValidation,
+} from '@/entities/user/fieldsValidation';
 
-import type { IUserDataForSignIn } from '@/entities/user';
+import type { IUserDataForSignIn } from '@/entities/user/types';
 
 export function SignInForm(): JSX.Element {
   const dispatch = useAppDispatch();

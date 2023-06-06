@@ -1,6 +1,6 @@
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 
-import { clearClassName } from '@/shared/helpers';
+import { clearClassName } from '@/shared/helpers/react';
 
 type TextareaProps = {
   className?: string;

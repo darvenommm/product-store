@@ -1,7 +1,7 @@
-import { Product } from '@/features/product';
-import { Info } from '@/components';
+import { Product } from '@/features/product/Product';
+import { Info } from '@/components/Info';
 
-import type { IProduct } from '@/entities/product';
+import type { IProduct } from '@/entities/product/types';
 
 interface IProductsProps {
   products: IProduct[];

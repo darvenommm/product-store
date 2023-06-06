@@ -2,16 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 
-import { FormTemplate } from '@/templates';
-import { createProduct } from '@/entities/product';
+import { FormTemplate } from '@/templates/FormTemplate';
+import { createProduct } from '@/entities/product/api';
 import {
   titleValidation,
   descriptionValidation,
   priceValidation,
   photoValidation,
-} from '@/entities/product';
+} from '@/entities/product/fieldsValidation';
 
-import type { IProductDataForCreating } from '@/entities/product';
+import type { IProductDataForCreating } from '@/entities/product/types';
 
 export function CreateProduct(): JSX.Element {
   const router = useRouter();

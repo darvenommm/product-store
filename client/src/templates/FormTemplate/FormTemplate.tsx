@@ -6,11 +6,15 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
-import { Button, Input, Textarea, FileInput } from '@/shared/ui';
-import { getErrorMessage } from '@/shared/helpers';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { FileInput } from '@/shared/ui/FileInput';
+import { Textarea } from '@/shared/ui/Textarea';
+
+import { getErrorMessage } from '@/shared/helpers/errors';
 
 import type { Field, FormTemplateProps } from './FormTemplateTypes';
-import type { IErrorResponse } from '@/shared/types';
+import type { IErrorResponse } from '@/shared/types/serverResponse';
 import type { FieldValues, Path } from 'react-hook-form';
 
 export function FormTemplate<FormData extends FieldValues>({

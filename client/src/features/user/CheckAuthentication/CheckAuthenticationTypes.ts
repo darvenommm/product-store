@@ -1,4 +1,4 @@
-import { Children } from '@/shared/types';
+import { Children } from '@/shared/types/react';
 
 interface IMessageType {
   message: string | JSX.Element | null;

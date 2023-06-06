@@ -1,4 +1,4 @@
-import { axios } from '@/shared/helpers';
+import { axios } from '@/shared/helpers/api';
 
 import type { IUserDataForCreating } from '../types';
 

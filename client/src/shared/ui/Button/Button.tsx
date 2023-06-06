@@ -5,9 +5,9 @@ import {
   ButtonHTMLAttributes,
 } from 'react';
 import { clsx } from 'clsx';
-import { clearClassName } from '@/shared/helpers';
+import { clearClassName } from '@/shared/helpers/react';
 
-import { Children } from '@/shared/types';
+import { Children } from '@/shared/types/react';
 
 type ButtonTypes = 'primary' | 'bright';
 

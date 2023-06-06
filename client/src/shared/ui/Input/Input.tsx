@@ -1,6 +1,6 @@
 import { forwardRef, InputHTMLAttributes } from 'react';
 
-import { clearClassName } from '@/shared/helpers';
+import { clearClassName } from '@/shared/helpers/react';
 
 type InputProps = {
   className?: string;

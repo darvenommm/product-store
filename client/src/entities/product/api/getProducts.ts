@@ -1,4 +1,4 @@
-import { getBaseServerUrl } from '@/shared/helpers';
+import { getBaseServerUrl } from '@/shared/helpers/api';
 
 import { IProduct } from '../types';
 

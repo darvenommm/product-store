@@ -1,10 +1,10 @@
 'use client';
 
 import { ToastContainer } from 'react-toastify';
-import { useAppSelector } from '@/shared/hooks';
-import { selectTheme } from '@/entities/theme';
+import { useAppSelector } from '@/shared/hooks/redux';
+import { selectTheme } from '@/entities/theme/themeSlice';
 
-import type { Children } from '@/shared/types';
+import type { Children } from '@/shared/types/react';
 
 interface IToastifyProviderProps {
   children: Children;

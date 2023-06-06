@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import { useAppSelector } from '@/shared/hooks';
-import { selectIsAuthentication } from '@/entities/user';
+import { useAppSelector } from '@/shared/hooks/redux';
+import { selectIsAuthentication } from '@/entities/user/userSlice';
 
 import type { CheckAuthenticationProps } from './CheckAuthenticationTypes';
 

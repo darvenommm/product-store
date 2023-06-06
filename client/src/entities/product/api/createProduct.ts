@@ -1,6 +1,6 @@
 import jsonToFormData from '@ajoelp/json-to-formdata';
 
-import { axios } from '@/shared/helpers';
+import { axios } from '@/shared/helpers/api';
 
 import type { IProductDataForCreating, IProductDataForSending } from '../types';
 

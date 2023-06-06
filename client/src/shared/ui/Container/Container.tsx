@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 
-import { Children } from '@/shared/types';
+import { Children } from '@/shared/types/react';
 
 interface IContainerProps {
   children: Children;

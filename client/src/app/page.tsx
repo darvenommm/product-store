@@ -1,5 +1,5 @@
-import { getProducts } from '@/entities/product';
-import { Products } from '@/widgets';
+import { getProducts } from '@/entities/product/api/getProducts';
+import { Products } from '@/widgets/Products';
 
 import type { Metadata } from 'next/types';
 

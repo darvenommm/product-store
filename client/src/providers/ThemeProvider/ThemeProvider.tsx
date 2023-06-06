@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { useAppDispatch } from '@/shared/hooks';
-import { setTheme } from '@/entities/theme';
+import { useAppDispatch } from '@/shared/hooks/redux';
+import { setTheme } from '@/entities/theme/themeSlice';
 
-import type { Theme } from '@/entities/theme';
-import type { Children } from '@/shared/types';
+import type { Theme } from '@/entities/theme/types';
+import type { Children } from '@/shared/types/react';
 
 interface IThemeProvider {
   startTheme: Theme;

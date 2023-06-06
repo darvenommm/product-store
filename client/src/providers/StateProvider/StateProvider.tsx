@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import { store } from './store';
 
-import type { Children } from '@/shared/types';
+import type { Children } from '@/shared/types/react';
 
 interface IStateProviderProps {
   children: Children;

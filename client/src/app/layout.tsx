@@ -3,18 +3,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Inter } from 'next/font/google';
 
-import {
-  StateProvider,
-  ReactQueryProvider,
-  ToastifyProvider,
-  ThemeProvider,
-} from '@/providers';
-import { Header } from '@/widgets';
-import { Container } from '@/shared/ui';
-import { clearClassName } from '@/shared/helpers';
-import { getThemeOnServer } from '@/entities/theme/onlyServer';
+import { StateProvider } from '@/providers/StateProvider';
+import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
+import { ToastifyProvider } from '@/providers/ToastifyProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
-import type { Children } from '@/shared/types';
+import { Header } from '@/widgets/Header';
+import { Container } from '@/shared/ui/Container';
+import { clearClassName } from '@/shared/helpers/react';
+import { getThemeOnServer } from '@/entities/theme/getThemeOnServer';
+
+import type { Children } from '@/shared/types/react';
 
 const inter = Inter({ subsets: ['latin'] });
 

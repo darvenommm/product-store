@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import type { IErrorResponse } from '@/shared/types';
+import type { IErrorResponse } from '@/shared/types/serverResponse';
 
 type CustomError = AxiosError<IErrorResponse> | Error;
 

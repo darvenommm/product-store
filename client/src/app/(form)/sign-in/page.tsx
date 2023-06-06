@@ -1,4 +1,4 @@
-import { SignInForm } from '@/widgets';
+import { SignInForm } from '@/widgets/SignInForm';
 
 import type { Metadata } from 'next';
 

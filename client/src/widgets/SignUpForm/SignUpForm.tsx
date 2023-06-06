@@ -1,19 +1,19 @@
 'use client';
 
-import { FormTemplate } from '@/templates';
+import { FormTemplate } from '@/templates/FormTemplate';
 
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/shared/hooks';
+import { useAppDispatch } from '@/shared/hooks/redux';
 
 import {
   emailValidation,
   passwordValidation,
   fullNameValidation,
-  updateIsAuthentication,
-} from '@/entities/user';
-import { createUser } from '@/entities/user';
+} from '@/entities/user/fieldsValidation';
+import { updateIsAuthentication } from '@/entities/user/userSlice';
+import { createUser } from '@/entities/user/api';
 
-import type { IUserDataForCreating } from '@/entities/user';
+import type { IUserDataForCreating } from '@/entities/user/types';
 
 export function SignUpForm(): JSX.Element {
   const dispatch = useAppDispatch();

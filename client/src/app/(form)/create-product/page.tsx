@@ -1,6 +1,6 @@
-import { CreateProduct } from '@/widgets';
+import { CreateProduct } from '@/widgets/CreateProduct';
 
-import { CheckAuthentication } from '@/features/user';
+import { CheckAuthentication } from '@/features/user/CheckAuthentication';
 
 import type { Metadata } from 'next';
 

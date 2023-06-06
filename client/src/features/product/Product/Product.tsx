@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import { clearClassName } from '@/shared/helpers';
+import { clearClassName } from '@/shared/helpers/react';
 
-import type { IProduct } from '@/entities/product';
+import type { IProduct } from '@/entities/product/types';
 
 interface IProductProps extends Omit<IProduct, 'id'> {}
 

@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '@/shared/ui';
-import { useAppSelector, useAppDispatch } from '@/shared/hooks';
-import { selectTheme, setTheme } from '@/entities/theme';
+import { Button } from '@/shared/ui/Button';
+import { useAppSelector, useAppDispatch } from '@/shared/hooks/redux';
+import { selectTheme, setTheme } from '@/entities/theme/themeSlice';
 
 import { FaMoon as Moon } from 'react-icons/fa';
 import { BsFillSunFill as Sun } from 'react-icons/bs';
 
-import type { Theme } from '@/entities/theme';
+import type { Theme } from '@/entities/theme/types';
 
 interface IThemeSwitcher {
   startTheme: Theme;

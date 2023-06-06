@@ -1,10 +1,10 @@
-import { ThemeSwitcher } from '@/features/theme';
-import { AuthButtons } from '@/features/user';
-import { Logo } from '@/components';
-import { Container } from '@/shared/ui';
-import { Button } from '@/shared/ui';
-import { getThemeOnServer } from '@/entities/theme/onlyServer';
-import { CheckAuthentication } from '@/features/user';
+import { ThemeSwitcher } from '@/features/theme/ThemeSwitcher';
+import { AuthButtons } from '@/features/user/AuthButtons';
+import { Logo } from '@/components/Logo';
+import { Container } from '@/shared/ui/Container';
+import { Button } from '@/shared/ui/Button';
+import { getThemeOnServer } from '@/entities/theme/getThemeOnServer';
+import { CheckAuthentication } from '@/features/user/CheckAuthentication';
 import Link from 'next/link';
 
 export function Header() {

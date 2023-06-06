@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { userReducer } from '@/entities/user';
-import { themeReducer } from '@/entities/theme';
+import { userReducer } from '@/entities/user/userSlice';
+import { themeReducer } from '@/entities/theme/themeSlice';
 
 export const store = configureStore({
   reducer: {

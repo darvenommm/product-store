@@ -4,14 +4,13 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
+import { checkAuthentication, signOut } from '@/entities/user/api';
 import {
-  checkAuthentication,
   selectIsAuthentication,
   updateIsAuthentication,
-  signOut,
-} from '@/entities/user';
-import { useAppDispatch, useAppSelector } from '@/shared/hooks';
-import { Button } from '@/shared/ui';
+} from '@/entities/user/userSlice';
+import { useAppDispatch, useAppSelector } from '@/shared/hooks/redux';
+import { Button } from '@/shared/ui/Button';
 
 interface IAuthButtonsProps {
   className?: string;
