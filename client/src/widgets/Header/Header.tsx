@@ -4,6 +4,7 @@ import { Logo } from '@/components';
 import { Container } from '@/shared/ui';
 import { Button } from '@/shared/ui';
 import { getThemeOnServer } from '@/entities/theme/onlyServer';
+import { CheckAuthentication } from '@/features/user';
 import Link from 'next/link';
 
 export function Header() {
@@ -18,9 +19,11 @@ export function Header() {
         <Logo />
         <div className="flex flex-wrap items-center gap-2">
           <ThemeSwitcher startTheme={startTheme} />
-          <Link href="/create-product">
-            <Button as="span">Create Product</Button>
-          </Link>
+          <CheckAuthentication message={null}>
+            <Link href="/create-product">
+              <Button as="span">Create Product</Button>
+            </Link>
+          </CheckAuthentication>
           <AuthButtons />
         </div>
       </Container>

@@ -10,7 +10,6 @@ import type { CheckAuthenticationProps } from './CheckAuthenticationTypes';
 
 export function CheckAuthentication({
   children,
-  type = 'redirect',
   ...otherProps
 }: CheckAuthenticationProps): JSX.Element | null {
   const router = useRouter();
@@ -18,17 +17,19 @@ export function CheckAuthentication({
   const isAuthentication = useAppSelector(selectIsAuthentication);
 
   if (isAuthentication) {
-    return <div>{children}</div>;
+    return <>{children}</>;
   }
 
-  if (
-    type === 'redirect' &&
-    'redirect' in otherProps &&
-    'infoMessage' in otherProps
-  ) {
+  const isRedirect = 'redirect' in otherProps && otherProps.redirect;
+
+  if (isRedirect) {
     router.push(otherProps.redirect);
     toast.info(otherProps.infoMessage);
-  } else if (type === 'message' && 'message' in otherProps) {
+  }
+
+  const isMessage = 'message' in otherProps && otherProps.message;
+
+  if (isMessage) {
     return <span>{otherProps.message}</span>;
   }
 

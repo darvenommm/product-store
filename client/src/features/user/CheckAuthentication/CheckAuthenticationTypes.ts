@@ -1,14 +1,15 @@
 import { Children } from '@/shared/types';
 
 interface IMessageType {
-  type: 'message';
-  message: string | JSX.Element;
+  message: string | JSX.Element | null;
+  redirect?: never;
+  infoMessage?: never;
 }
 
 interface IRedirectType {
-  type: 'redirect';
   redirect: string;
   infoMessage: string;
+  message?: never;
 }
 
 export type CheckAuthenticationProps = {
