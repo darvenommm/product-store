@@ -1,4 +1,4 @@
-import { Product } from '@/features/product/Product';
+import { ProductCard } from '@/components/product/ProductCard';
 import { Info } from '@/components/Info';
 
 import type { IProduct } from '@/entities/product/types';
@@ -12,14 +12,16 @@ export function Products({ products }: IProductsProps): JSX.Element {
     <section>
       <h2 className="sr-only">Products.</h2>
       {products.length === 0 && <Info>There are no products</Info>}
-      <div
+      <ul
         className="grid gap-4"
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}
       >
         {products.map(({ id, ...productsProps }) => (
-          <Product key={id} {...productsProps} />
+          <li key={id}>
+            <ProductCard productId={Number(id)} {...productsProps} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

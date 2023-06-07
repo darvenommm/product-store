@@ -1,4 +1,5 @@
 import { Products } from '#db';
+import { ApiError } from '#errors';
 
 import type {
   ProductInstance,
@@ -8,6 +9,16 @@ import type {
 class ProductService {
   public getAllProducts = async (): Promise<ProductInstance[]> => {
     return await Products.findAll();
+  };
+
+  public getProduct = async (id: number): Promise<ProductInstance> => {
+    const product = await Products.findByPk(id);
+
+    if (!product) {
+      throw ApiError.getBadRequestError('Product not found by id');
+    }
+
+    return product;
   };
 
   public createProduct = async (

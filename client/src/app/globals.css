@@ -6,4 +6,16 @@
   .bg {
     @apply bg-gray-200 dark:bg-gray-800 shadow-lg dark:shadow-none;
   }
+
+  .title {
+    @apply text-blue-500 font-bold;
+  }
+
+  .important {
+    @apply text-rose-600 font-bold;
+  }
+
+  .bg-border {
+    @apply border-2 border-gray-800 dark:border-transparent;
+  }
 }

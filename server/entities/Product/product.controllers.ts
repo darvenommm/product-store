@@ -22,6 +22,20 @@ class ProductController {
     }
   };
 
+  public getProduct: RequestHandler = async (
+    request,
+    response,
+    next,
+  ): Promise<void> => {
+    try {
+      const id = Number(request.params.id);
+      const product = await productService.getProduct(id);
+      response.status(200).json(product);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public createProduct: RequestHandler = async (
     request,
     response,

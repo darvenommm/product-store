@@ -7,6 +7,8 @@ import { upload } from '#middlewares';
 export const productRouter = Router();
 
 productRouter.get('/products', productController.getAllProducts);
+productRouter.get('/products/:id', productController.getProduct);
+
 productRouter.post(
   '/products',
   upload.single('photo'),

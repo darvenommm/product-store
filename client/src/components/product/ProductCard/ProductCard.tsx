@@ -1,48 +1,50 @@
 import Image from 'next/image';
 
 import { clearClassName } from '@/shared/helpers/react';
+import Link from 'next/link';
 
 import type { IProduct } from '@/entities/product/types';
 
-interface IProductProps extends Omit<IProduct, 'id'> {}
+interface IProductCardProps extends Omit<IProduct, 'id'> {
+  productId: number;
+}
 
-export function Product({
+export function ProductCard({
   title,
   description,
   price,
   photoUrl,
-}: IProductProps): JSX.Element {
+  productId,
+}: IProductCardProps): JSX.Element {
   const parentClassName = clearClassName(`
-    flex flex-col bg rounded-lg p-3 border-2
-    border-gray-800 dark:border-transparent
+    flex flex-col bg rounded-lg p-3 bg-border
   `);
-  const titleClassName = 'text-blue-600 font-bold';
 
   return (
-    <div className={parentClassName}>
+    <Link className={parentClassName} href={`/products/${productId}`}>
       <Image
-        className="mb-4 max-h-[400px]"
+        className="mb-4 h-[300px] object-contain"
         src={photoUrl}
         alt={title}
-        width={200}
+        width={300}
         height={200}
       />
       <div className="flex flex-col justify-between flex-grow">
         <div>
           <p className="mb-2">
-            <span className={titleClassName}>Title:</span>{' '}
+            <span className="title">Title:</span>
             <span className="block break-words">{title}</span>
           </p>
           <p className="mb-3 max-h-[203px] overflow-hidden">
-            <span className={titleClassName}>Description:</span>
+            <span className="title">Description:</span>
             <span className="block break-words">{description}</span>
           </p>
         </div>
         <div className="flex justify-between">
-          <span className={titleClassName}>Price:</span>
-          <p className="text-rose-800 font-bold">{price}$</p>
+          <span className="title">Price:</span>
+          <p className="important">{price}$</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

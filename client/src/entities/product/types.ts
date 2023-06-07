@@ -1,3 +1,11 @@
+export interface IProduct {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  photoUrl: string;
+}
+
 export interface IProductDataForCreating {
   title: string;
   description: string;
@@ -8,12 +16,4 @@ export interface IProductDataForCreating {
 export interface IProductDataForSending
   extends Omit<IProductDataForCreating, 'photo'> {
   photo: File;
-}
-
-export interface IProduct {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  photoUrl: string;
 }
