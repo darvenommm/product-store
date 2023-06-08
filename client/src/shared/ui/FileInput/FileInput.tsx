@@ -50,8 +50,9 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
     const titleClassName = 'block capitalize mb-2 self-stretch cursor-pointer';
     const fileInputClassName =
       'inline-block self-start px-3 py-2 rounded-md cursor-pointer ' +
-      'bg-purple-500 dark:bg-red-700 border-2 border-black ' +
-      'dark:border-transparent text-white mb-1';
+      'bg-purple-500 border-2 border-black dark:bg-red-700 ' +
+      'dark:border-transparent text-white mb-1 ' +
+      'peer-focus-visible:border-rose-500 dark:peer-focus-visible:border-blue-700';
 
     return (
       <div className={parentClassName}>
@@ -59,28 +60,26 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
           {titleText ? (
             <span className={titleClassName}>{titleText}</span>
           ) : null}
-          <div>
-            <span className={fileInputClassName}>
-              {!file ? placeholder : textAfter}
-            </span>
-            {imageUrl ? (
-              <Image
-                className="mt-2"
-                src={imageUrl}
-                alt="chosen file."
-                width={160}
-                height={160}
-              />
-            ) : null}
-          </div>
           <input
-            className="sr-only"
+            className="peer sr-only"
             type="file"
             accept="image/*,.jpg,.jpeg,.png,.webp,.avif,.gif"
             onInput={fileInputChangeHandler}
             ref={ref}
             {...otherProps}
           />
+          <span className={fileInputClassName}>
+            {!file ? placeholder : textAfter}
+          </span>
+          {imageUrl ? (
+            <Image
+              className="mt-2"
+              src={imageUrl}
+              alt="chosen file."
+              width={160}
+              height={160}
+            />
+          ) : null}
         </label>
         {errorText ? (
           <span className="block text-rose-500">{errorText}</span>

@@ -17,7 +17,7 @@ export function ProductCard({
   productId,
 }: IProductCardProps): JSX.Element {
   const parentClassName = clearClassName(`
-    flex flex-col bg rounded-lg p-3 bg-border
+    flex flex-col bg rounded-lg p-3 bg-border w-[250px]
   `);
 
   return (
@@ -37,7 +37,11 @@ export function ProductCard({
           </p>
           <p className="mb-3 max-h-[203px] overflow-hidden">
             <span className="title">Description:</span>
-            <span className="block break-words">{description}</span>
+            <span className="block break-words">
+              {description.length < 200
+                ? description
+                : `${description.slice(0, 200).trimEnd()}...`}
+            </span>
           </p>
         </div>
         <div className="flex justify-between">

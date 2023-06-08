@@ -5,12 +5,18 @@ export const passwordValidation: RegisterOptions = {
     value: true,
     message: 'This field is required!',
   },
-  minLength: {
-    value: 6,
-    message: 'The password must be greater than or equal to 6 chars!',
-  },
-  maxLength: {
-    value: 32,
-    message: 'The password must be less than or equal to 32 characters!',
+  validate: {
+    minLength: (value): true | string => {
+      return (
+        value.trim().length >= 6 ||
+        'Description must be at least 6 characters long without spaces'
+      );
+    },
+    maxLength: (value): true | string => {
+      return (
+        value.trim().length <= 32 ||
+        'Description must be at most 32 characters long without spaces'
+      );
+    },
   },
 };

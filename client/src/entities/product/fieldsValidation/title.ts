@@ -5,12 +5,18 @@ export const titleValidation: RegisterOptions = {
     value: true,
     message: 'This field is required!',
   },
-  minLength: {
-    value: 6,
-    message: 'Title must be at least 6 characters long',
-  },
-  maxLength: {
-    value: 128,
-    message: 'Title must be at most 128 characters long',
+  validate: {
+    minLength: (value): true | string => {
+      return (
+        value.trim().length >= 6 ||
+        'Description must be at least 6 characters long without spaces'
+      );
+    },
+    maxLength: (value): true | string => {
+      return (
+        value.trim().length <= 128 ||
+        'Description must be at most 128 characters long without spaces'
+      );
+    },
   },
 };

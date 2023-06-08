@@ -5,12 +5,18 @@ export const fullNameValidation: RegisterOptions = {
     value: true,
     message: 'This field is required!',
   },
-  minLength: {
-    value: 4,
-    message: 'The full name must be greater than or equal to 4 chars!',
-  },
-  maxLength: {
-    value: 64,
-    message: 'The full name must be less than or equal to 64 characters!',
+  validate: {
+    minLength: (value): true | string => {
+      return (
+        value.trim().length >= 4 ||
+        'Description must be at least 4 characters long without spaces'
+      );
+    },
+    maxLength: (value): true | string => {
+      return (
+        value.trim().length <= 64 ||
+        'Description must be at most 64 characters long without spaces'
+      );
+    },
   },
 };

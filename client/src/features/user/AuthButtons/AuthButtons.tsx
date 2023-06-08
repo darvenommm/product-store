@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 import { checkAuthentication, signOut } from '@/entities/user/api';
 import {
@@ -31,6 +32,7 @@ export function AuthButtons({ className }: IAuthButtonsProps): JSX.Element {
   const signOutButtonClickHandler = async (): Promise<void> => {
     await signOut();
     dispatch(updateIsAuthentication(false));
+    toast.info('You are signed out from your account!');
   };
 
   useEffect((): void => {
